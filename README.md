@@ -7,5 +7,5 @@ Sample Flickr Accounts: smithsonian, nasa, briscoe_center
 
 **IMPORTANT**
 
-To allow virtual keyboard support, start program as follows 
+To allow virtual keyboard support, start program as follows    
 `kivy main.py -c kivy:keyboard_mode:multi`
