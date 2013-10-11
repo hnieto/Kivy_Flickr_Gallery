@@ -107,38 +107,42 @@ class PicturesApp(App):
                 photo_perpage = int(tree.find('photos').attrib.get('perpage'))
                 photo_list = tree.findall('photos/photo')
                 
-                # randomize flickr image selections
-                if photo_pages == 1:
-                    random_selection = [randint(0,photo_total) for _ in xrange(picture_count)]
-                elif photo_pages > 1:
-                    random_selection = [randint(0,photo_perpage) for _ in xrange(picture_count)]
-                print random_selection
-                count = 0
-                
-                for photo in photo_list:
-                    if count in random_selection:
-                        try:
-                            # parse xml for image url_o
-                            url_o = photo.attrib.get('url_o')
-                            print url_o
-                            
-                            # load the photo
-                            flickr_photo = FlickrPhoto(source = url_o,
-                                                       rotation=randint(-30,30),
-                                                       #pos=(randint(200,5500),randint(200,1800)),
-                                                       scale_min =.5,
-                                                       scale_max=15)                
-                            # add to the main field
-                            self.root.add_widget(flickr_photo)
-                        except Exception, e:
-                            Logger.exception('Pictures: Unable to load <%s>' % url_o)
-                    count += 1
+                if photo_total != 0:
+                    # randomize flickr image selections
+                    if photo_pages == 1:
+                        random_selection = [randint(0,photo_total) for _ in xrange(picture_count)]
+                    elif photo_pages > 1:
+                        random_selection = [randint(0,photo_perpage) for _ in xrange(picture_count)]
+                    print random_selection
+                    count = 0
+                    
+                    for photo in photo_list:
+                        if count in random_selection:
+                            try:
+                                # parse xml for image url_o
+                                url_o = photo.attrib.get('url_o')
+                                print url_o
+                                
+                                # load the photo
+                                flickr_photo = FlickrPhoto(source = url_o,
+                                                           rotation=randint(-30,30),
+                                                           #pos=(randint(200,5500),randint(200,1800)), 
+                                                           scale_min =.5,
+                                                           scale_max=15)                
+                                # add to the main field
+                                self.root.add_widget(flickr_photo)
+                            except Exception, e:
+                                Logger.exception('Pictures: Unable to load <%s>' % url_o)
+                        count += 1
+                else:
+                    error3 = Popup(title='ERROR!', content=Label(text='No Images Available', font_size=25), size_hint=(None, None), size=(300, 200), pos_hint={'x': .5, 'top': .8})
+                    error3.open()
             else:
-                error1 = Popup(title='ERROR!', content=Label(text='Invalid User Name', font_size=25), size_hint=(None, None), size=(300, 200), pos_hint={'x': .5, 'top': .8})
-                error1.open()
-        else:
-                error2 = Popup(title='ERROR!', content=Label(text='User Name Required', font_size=25), size_hint=(None, None), size=(300, 200), pos_hint={'x': .5, 'top': .8})
+                error2 = Popup(title='ERROR!', content=Label(text='Invalid User Name', font_size=25), size_hint=(None, None), size=(300, 200), pos_hint={'x': .5, 'top': .8})
                 error2.open()
+        else:
+                error1 = Popup(title='ERROR!', content=Label(text='User Name Required', font_size=25), size_hint=(None, None), size=(300, 200), pos_hint={'x': .5, 'top': .8})
+                error1.open()
         
         ''' clear textbox for next user '''
         textbox.text = ''
