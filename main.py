@@ -99,7 +99,7 @@ class PicturesApp(App):
                 print user_id
                 
                 ''' get flickr images with user id '''
-                print ('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+api_key+'&user_id='+user_id+'&extras=url_o')
+                print ('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+api_key+'&user_id='+user_id+'&extras=url_o'+'&per_page=500')
                 flickr_images_xml = urllib2.urlopen('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+api_key+'&user_id='+user_id+'&extras=url_o')
                 tree = ET.parse(flickr_images_xml)
                 photo_total = int(tree.find('photos').attrib.get('total'))
