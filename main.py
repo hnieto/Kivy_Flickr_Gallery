@@ -123,14 +123,19 @@ class PicturesApp(App):
                                 url_o = photo.attrib.get('url_o')
                                 print url_o
                                 
-                                # load the photo
-                                flickr_photo = FlickrPhoto(source = url_o,
-                                                           rotation=randint(-30,30),
-                                                           #pos=(randint(200,5500),randint(200,1800)), 
-                                                           scale_min =.5,
-                                                           scale_max=15)                
-                                # add to the main field
-                                self.root.add_widget(flickr_photo)
+                                if str(url_o) != 'None':
+                                    # load the photo
+                                    flickr_photo = FlickrPhoto(source = url_o,
+                                                               rotation=randint(-30,30),
+                                                               #pos=(randint(200,5500),randint(200,1800)), 
+                                                               scale_min =.5,
+                                                               scale_max=15)                
+                                    # add to the main field
+                                    self.root.add_widget(flickr_photo)
+                                else:
+                                    error4 = Popup(title='ERROR!', content=Label(text='Image Missing url_o', font_size=25), size_hint=(None, None), size=(300, 200), pos_hint={'x': .5, 'top': .8})
+                                    error4.open()
+                                    break
                             except Exception, e:
                                 Logger.exception('Pictures: Unable to load <%s>' % url_o)
                         count += 1
