@@ -1,6 +1,6 @@
 # KIVY Flickr Gallery
 
-![Lasso Multitouch Image Viewer](http://imgur.com/pqDclOz.png)
+![Lasso Multitouch Image Viewer](http://imgur.com/mfLrO2J.jpg)
 
 This is an upgraded version of the Pictures viewer demo.
 Flickr images are downloaded using AsyncImage and manipulated with the Scatter widget.
